@@ -33,7 +33,14 @@ namespace ms_tutorial
             // }
 
             app.UseOwin(buildFunc =>
-                buildFunc.UseNancy());
+                {
+                    buildFunc(next => env =>
+                    {
+                        System.Console.WriteLine("Got request");
+                        return next(env);
+                    });
+                    buildFunc.UseNancy();
+                });
 
             // app.UseRouting();
 
